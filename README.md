@@ -1,5 +1,7 @@
 # Ansible Role: MongoDB
 
+[![Build Status](https://travis-ci.org/adriano-di-giovanni/ansible-role-mongodb.svg?branch=master)](https://travis-ci.org/adriano-di-giovanni/ansible-role-mongodb)
+
 Ansible role for MongoDB Community Edition:
 
 * basic, opinionated install
