@@ -1,0 +1,31 @@
+---
+- name: import the public key used by the package management system
+  apt_key:
+    id: EA312927
+    keyserver: hkp://keyserver.ubuntu.com:80
+    state: present
+
+- name: create a list file for MongoDB
+  copy:
+    content: deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse
+    dest: /etc/apt/sources.list.d/mongodb-org-3.2.list
+
+- name: install the MongoDB packages
+  apt:
+    cache_valid_time: 3600
+    name: mongodb-org
+    state: present
+    update_cache: yes
+
+- name: pin a specific version of MongoDB
+  dpkg_selections:
+    name: '{{ item }}'
+    selection: hold
+  with_items:
+    - mongodb-org
+    - mongodb-org-server
+    - mongodb-org-shell
+    - mongodb-org-mongos
+    - mongodb-org-mongos
+  notify:
+    - restart mongodb
